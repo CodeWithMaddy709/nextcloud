@@ -8,23 +8,23 @@ phases:
       # - curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r '.tag_name')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       # - chmod +x /usr/local/bin/docker-compose
       # - docker-compose --version
-#   pre_build:
-#     commands:
-#       - echo Logging in to Amazon ECR...
-#       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-#       - echo Build Started on `date`
-#   build:
-#     commands:
-#       - echo Building Docker images....
-#       - docker-compose -f docker-compose.yml build
-#   post_build:
-#     commands:
-#       - echo Build Completed on `date`
-#       - echo Pushing Docker images...
-#       - docker-compose -f docker-compose.yml push
-#       - echo Running container...
-#       - docker-compose -f docker-compose.yml up -d
-# artifacts:
-#   files:
-#     - '**/*'
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - echo Build Started on `date`
+  build:
+    commands:
+      - echo Building Docker images....
+      - docker-compose -f docker-compose.yml build
+  post_build:
+    commands:
+      - echo Build Completed on `date`
+      - echo Pushing Docker images...
+      - docker-compose -f docker-compose.yml push
+      - echo Running container...
+      - docker-compose -f docker-compose.yml up -d
+artifacts:
+  files:
+    - '**/*'
   discard-paths: yes
