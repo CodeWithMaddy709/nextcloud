@@ -1,8 +1,6 @@
 version: 0.2
 phases:
   install:
-    runtime-versions:
-      docker: 18
     commands:
       - echo Installing Docker Compose...
       - curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r '.tag_name')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
